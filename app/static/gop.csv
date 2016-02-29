@@ -1,20 +1,20 @@
 state,date,type,total,method
-Alabama,March 1,primary,50,hybrid
-Alaska,March 1,caucus,28,proportional
-Arkansas,March 1,primary,40,hybrid
-Colorado,March 1,caucus,37,unbound*
-Georgia,March 1,primary,76,hybrid
-Massachusetts,March 1,primary,42,proportional
-Minnesota,March 1,caucus,38,proportional
-Oklahoma,March 1,primary,43,hybrid
-Tennessee,March 1,primary,58,hybrid
-Texas,March 1,primary,155,hybrid
-Vermont,March 1,primary,16,hybrid
-Virginia,March 1,primary,49,proportional
-Wyoming,March 1,caucus,29,unbound*
-Kansas,March 5,caucus,40,proportional
-Kentucky,March 5,caucus,46,proportional
-Louisiana,March 5,primary,46,proportional
-Maine,March 5,caucus,46,proportional
-Hawaii,March 8,caucus,19,proportional
-Idaho,March 8,primary,32,hybrid
+Alabama,03/01/16,primary,50,hybrid
+Alaska,03/01/16,caucus,28,proportional
+Arkansas,03/01/16,primary,40,hybrid
+Colorado,03/01/16,caucus,37,unbound*
+Georgia,03/01/16,primary,76,hybrid
+Massachusetts,03/01/16,primary,42,proportional
+Minnesota,03/01/16,caucus,38,proportional
+Oklahoma,03/01/16,primary,43,hybrid
+Tennessee,03/01/16,primary,58,hybrid
+Texas,03/01/16,primary,155,hybrid
+Vermont,03/01/16,primary,16,hybrid
+Virginia,03/01/16,primary,49,proportional
+Wyoming,03/01/16,caucus,29,unbound*
+Kansas,03/05/16,caucus,40,proportional
+Kentucky,03/05/16,caucus,46,proportional
+Louisiana,03/05/16,primary,46,proportional
+Maine,03/05/16,caucus,46,proportional
+Hawaii,03/08/16,caucus,19,proportional
+Idaho,03/08/16,primary,32,hybrid

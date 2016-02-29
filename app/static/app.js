@@ -1,20 +1,18 @@
 "use strict";
+
+var currDate = new Date('03/01/16');
+
 var width = 960,
     height = 500,
     centered;
 
-function State(id, code, name) {
-  this.id = id;
-  this.code = code;
-  this.name = name;
+class State {
+  constructor(id, code, name) {
+    this.id = id;
+    this.code = code;
+    this.name = name;
+  }
 }
-
-var allStates = {};
-d3.tsv('static/us-state-names.tsv', function(tsv) {
-  tsv.forEach(function(d,i) {
-    allStates[d.id] = new State(d.id, d.code, d.name);
-  });
-});
 
 class Primary {
   constructor(stateName, date, type, numDelegates) {
@@ -39,9 +37,15 @@ class Gop extends Primary {
   }
 }
 
+var allStates = {};
 var allDem = {};
 var allGop = {};
 
+d3.tsv('static/us-state-names.tsv', function(tsv) {
+  tsv.forEach(function(d,i) {
+    allStates[d.id] = new State(d.id, d.code, d.name);
+  });
+});
 d3.csv('static/dem.csv', function(csv) {
   csv.forEach(function(d, i) {
     allDem[d.state] = new Dem(d.state, new Date(d.date), d.type, d.total, d['super']);
@@ -84,6 +88,13 @@ d3.json("static/us.json", function(error, us) {
   .data(data)
   .enter().append("path")
   .attr("d", path)
+  .classed("election-today", function(d) {
+    var selected = allStates[d.id];
+    var demInfo = allDem[selected.name];
+    var gopInfo = allGop[selected.name];
+    return (demInfo && currDate.getTime() == demInfo.date.getTime()) ||
+      (gopInfo && currDate.getTime() == gopInfo.date.getTime());
+  })
   .on("click", clicked);
 
   g.append("path")
@@ -112,12 +123,14 @@ d3.json("static/us.json", function(error, us) {
   .attr("fill", "white");
 });
 
-var selected;
 function clicked(d) {
   var x, y, k;
 
   d3.select('.details').selectAll("*").remove();
-  selected = allStates[d.id];
+  var selected = allStates[d.id];
+  var demInfo = allDem[selected.name];
+  var gopInfo = allGop[selected.name];
+
   var labelVis;
   if (d && centered !== d) {
     var centroid = path.centroid(d);
@@ -126,39 +139,27 @@ function clicked(d) {
     k = 4;
     centered = d;
 
-    var details = d3.select(".details");
-    details.append("div").attr("class", "state-name").text(selected.name);
-
-    var demInfo = allDem[selected.name];
-    var gopInfo = allGop[selected.name];
-    var dem = details.append("div").attr("class", "state-info");
-    dem.append('div').html('<a target="_blank" href="http://projects.fivethirtyeight.com/election-2016/primary-forecast/' + selected.name.toLowerCase() + '-democratic">DEM</a>');
-
     var format = d3.time.format("%Y-%m-%d");
 
-    var table = dem.append('table');
-    var row = table.append('tr');
-    row.append('td').html("Primary Date");
-    row.append('td').html(format(demInfo.date));
-    row = table.append('tr');
-    row.append('td').html('# Delegates');
-    row.append('td').html(demInfo.numDelegates);
-    row = table.append('tr');
-    row.append('td').html('# Super');
-    row.append('td').html(demInfo.numSuper);
+    var details = d3.select(".details");
+    details.append("div").attr("class", "state-name").text(selected.name);
+    details.append("div").attr("class", "election-date").text(
+      "Primary Date: " + format(demInfo.date));
 
-    var gop = details.append("div").attr("class", "state-info");
-    gop.append('div').html('<a target="_blank" href="http://projects.fivethirtyeight.com/election-2016/primary-forecast/' + selected.name.toLowerCase() + '-republican">GOP</a>');
-    table = gop.append('table');
-    row = table.append('tr');
-    row.append('td').html("Primary Date");
-    row.append('td').html(format(gopInfo.date));
-    row = table.append('tr');
-    row.append('td').html('# Delegates');
-    row.append('td').html(gopInfo.numDelegates);
-    row = table.append('tr');
-    row.append('td').html('Method');
-    row.append('td').html(gopInfo.method);
+    if (demInfo != null) {
+      var dem = details.append("div").attr("class", "state-info");
+      dem.append('div').html('<a target="_blank" title="Forecasts by 538" href="http://projects.fivethirtyeight.com/election-2016/primary-forecast/' + selected.name.toLowerCase() + '-democratic">' +
+                             'Democratic delegates: ' + demInfo.numDelegates +
+                             '</a>');
+      dem.append('div').text('Super delegates: ' + demInfo.numSuper).style('font-size', '14px');
+    }
+    if (gopInfo != null) {
+      var gop = details.append("div").attr("class", "state-info");
+      gop.append('div').html('<a target="_blank" title="Forecasts by 538" href="http://projects.fivethirtyeight.com/election-2016/primary-forecast/' + selected.name.toLowerCase() + '-republican">' +
+                           'Republican delegates: ' + gopInfo.numDelegates +
+                           '</a>');
+      gop.append('div').text('Allocation method: ' + gopInfo.method).style('font-size', '14px');
+    }
 
   } else {
     x = width / 2;
@@ -179,6 +180,4 @@ function clicked(d) {
   .duration(750)
   .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
   .style("stroke-width", 1.5 / k + "px");
-
-
 }

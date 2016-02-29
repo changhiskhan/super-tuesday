@@ -2,15 +2,18 @@
 <!-- copied from http://bl.ocks.org/mbostock/2206590 -->
 <meta charset="utf-8">
 <head>
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans"/>
   <link rel=stylesheet type=text/css href="{{ url_for('static', filename='app.css') }}"/>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="http://d3js.org/topojson.v1.min.js"></script>
 </head>
 <body>
+  <div class="title">2016 Presidential Primary Guide</div>
   <div class="container">
     <div class="map"></div>
     <div class="details">
     </div>
   </div>
+  <div class="footer">darker shading == super tuesday states </div>
   <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>

@@ -1,15 +1,15 @@
 * {
     vertical-align: top;
+    font-family: 'PT Sans';
 }
 
-html, body {
-    width:100%;
-    height:100%;
+.title {
+    text-align: center;
+    font-size: 36px;
 }
 
-.container {
-    width:100%;
-    height:100%;
+.footer {
+    margin-top:5px;
 }
 
 .map {
@@ -19,22 +19,32 @@ html, body {
 }
 
 .details {
+    margin-left:10px;
+    padding-top:50px;
     height:500px;
-    width:240px;
+    width:360px;
     display:inline-block;
 }
 
 .state-name {
     width:100%;
-    text-align: center;
+    text-align: left;
     font-size:24px;
+}
+
+.election-today {
+    width: 100%;
+    text-align: left;
+    font-size:16px;
+    fill:#666;
 }
 
 .state-info {
     width:100%;
     text-align: left;
-    margin-top:10px;
-    margin-bottom:10px;
+    margin-top:20px;
+    margin-bottom:20px;
+    font-size:16px;
 }
 
 .background {
@@ -60,11 +70,3 @@ html, body {
 }
 
 .state-label {}
-
-table {
-    width:100%;
-}
-
-tr {
-    width:100%;
-}
