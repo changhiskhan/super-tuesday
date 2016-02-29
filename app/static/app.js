@@ -197,7 +197,7 @@ function renderDetails(selected, demInfo, gopInfo) {
 function renderGop(stateName, info) {
   var div = details.append("div").attr("class", "state-info");
   renderPartyDetails(div, stateName.toLowerCase(), 'republican', info.numDelegates,
-                     ['wyoming', 'minnesota', 'arkansas', 'vermont', 'colorado']);
+                     ['wyoming', 'minnesota', 'arkansas', 'vermont', 'colorado', 'alaska']);
   div.append('div')
   .text('Allocation method: ' + info.method)
   .style('font-size', '14px');
@@ -206,7 +206,7 @@ function renderGop(stateName, info) {
 function renderDem(stateName, info) {
   var div = details.append("div").attr("class", "state-info");
   renderPartyDetails(div, stateName.toLowerCase(), 'democratic', info.numDelegates,
-                     ['wyoming', 'minnesota', 'colorado']);
+                     ['wyoming', 'minnesota', 'colorado', 'alaska']);
   div.append('div')
   .text('Super delegates: ' + info.numSuper)
   .style('font-size', '14px');
